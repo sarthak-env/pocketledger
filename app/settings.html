@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings – PocketLedger</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    body { background: var(--bg); min-height: 100vh; }
+
+    .setting-row {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+    .setting-row:last-child { border-bottom: none; }
+    .setting-label { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+    .setting-desc  { font-size: 11px; color: var(--text-tertiary); margin-top: 3px; }
+
+    /* budget prefix updates when currency changes */
+    .budget-prefix-wrap { position: relative; width: 130px; }
+    .budget-prefix-wrap .bprefix {
+      position: absolute; left: 12px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary); font-weight: 600;
+      font-size: 14px; pointer-events: none;
+    }
+    .budget-prefix-wrap input { padding-left: 28px; width: 100%; }
+
+    select.input { max-width: 170px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<header class="glass-nav">
+  <div style="max-width:620px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+    <a href="index.html" style="font-size:17px;font-weight:700;color:var(--text-primary);text-decoration:none;flex-shrink:0;">💰 PocketLedger</a>
+    <nav style="display:flex;gap:20px;flex-wrap:wrap;">
+      <a href="index.html"     class="nav-link">Home</a>
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="settings.html"  class="nav-link active">Settings</a>
+    </nav>
+  </div>
+</header>
+
+<main style="max-width:620px;margin:auto;padding:28px 20px 60px;">
+
+  <h1 style="font-size:22px;font-weight:700;margin:0 0 24px;color:var(--text-primary);">Settings</h1>
+
+  <!-- ── Budget ── -->
+  <section class="card" style="margin-bottom:20px;overflow:hidden;">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);">
+      <div style="font-size:11px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.5px;">Budget</div>
+    </div>
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">Monthly Budget</div>
+        <div class="setting-desc">Your total spending limit for the month</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div class="budget-prefix-wrap">
+          <span id="budget-prefix" class="bprefix">$</span>
+          <input id="budget-input" type="number" min="1" step="1" placeholder="2000" class="input">
+        </div>
+        <button id="save-budget-btn" class="btn btn-primary btn-sm">Save</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Preferences ── -->
+  <section class="card" style="margin-bottom:20px;overflow:hidden;">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);">
+      <div style="font-size:11px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.5px;">Preferences</div>
+    </div>
+
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">Currency</div>
+        <div class="setting-desc">Symbol used across the entire app</div>
+      </div>
+      <select id="currency-select" class="input">
+        <option value="USD">🇺🇸 USD ($)</option>
+        <option value="EUR">🇪🇺 EUR (€)</option>
+        <option value="GBP">🇬🇧 GBP (£)</option>
+        <option value="INR">🇮🇳 INR (₹)</option>
+        <option value="JPY">🇯🇵 JPY (¥)</option>
+        <option value="CAD">🇨🇦 CAD (CA$)</option>
+        <option value="AUD">🇦🇺 AUD (A$)</option>
+      </select>
+    </div>
+
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">Dark Mode</div>
+        <div class="setting-desc">Switch to a dark colour scheme on all pages</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="dark-mode-toggle">
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+
+  </section>
+
+  <!-- ── Data ── -->
+  <section class="card" style="margin-bottom:20px;overflow:hidden;">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);">
+      <div style="font-size:11px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.5px;">Data</div>
+    </div>
+
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">Export Data</div>
+        <div class="setting-desc">Download all expenses + settings as JSON</div>
+      </div>
+      <button id="export-btn" class="btn btn-ghost btn-sm">📤 Export</button>
+    </div>
+
+    <div class="setting-row">
+      <div>
+        <div class="setting-label" style="color:var(--accent-red);">Reset All Data</div>
+        <div class="setting-desc">Permanently delete all expenses and settings</div>
+      </div>
+      <button id="reset-btn" class="btn btn-sm" style="background:rgba(255,59,48,0.1);color:var(--accent-red);border:none;">🗑 Reset</button>
+    </div>
+  </section>
+
+  <!-- ── About ── -->
+  <section class="card" style="overflow:hidden;">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);">
+      <div style="font-size:11px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.5px;">About</div>
+    </div>
+    <div class="setting-row" style="flex-direction:column;align-items:flex-start;gap:6px;">
+      <div class="setting-label">💰 PocketLedger v1.0</div>
+      <div class="setting-desc" style="line-height:1.7;">
+        A simple personal finance tracker. All data is stored locally in your browser using
+        <code>localStorage</code> — nothing is ever sent to any server.
+        <br><br>
+        <strong>Note on currency:</strong> amounts are stored as-entered in your chosen currency.
+        Changing the currency symbol updates how amounts <em>display</em>; it does not convert values.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Confirm Reset Modal ── -->
+<div id="confirm-overlay" class="modal-overlay" style="display:none;">
+  <div class="modal-box" style="text-align:center;">
+    <div style="font-size:36px;margin-bottom:16px;">⚠️</div>
+    <h3 style="font-size:17px;font-weight:700;margin:0 0 8px;color:var(--text-primary);">Reset All Data?</h3>
+    <p style="font-size:13px;color:var(--text-secondary);margin:0 0 24px;line-height:1.6;">
+      This permanently deletes all your expenses and resets settings to default. This cannot be undone.
+    </p>
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <button id="confirm-no"  class="btn btn-ghost"  style="flex:1;">Cancel</button>
+      <button id="confirm-yes" class="btn btn-danger" style="flex:1;">Delete Everything</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script type="module">
+import {
+  getSettings, saveSetting, clearExpenses, clearSettings, getExpenses,
+  applyDarkMode, CURRENCY_SYMBOLS
+} from '../js/store.js';
+import { showToast } from '../js/toast.js';
+
+// ── Apply dark mode immediately on load ────────────────────────────────────
+const initSettings = getSettings();
+applyDarkMode(!!initSettings.darkMode);
+
+// ── Load all saved values into the UI ─────────────────────────────────────
+function loadUI() {
+  const s = getSettings();
+  document.getElementById('budget-input').value    = s.budget ?? 2000;
+  document.getElementById('currency-select').value = s.currency || 'USD';
+  document.getElementById('dark-mode-toggle').checked = !!s.darkMode;
+  // Update budget prefix to match current currency
+  updateBudgetPrefix(s.currency || 'USD');
+}
+
+function updateBudgetPrefix(cur) {
+  const sym = CURRENCY_SYMBOLS[cur] || cur;
+  document.getElementById('budget-prefix').textContent = sym;
+}
+
+loadUI();
+
+// ── Save budget ────────────────────────────────────────────────────────────
+document.getElementById('save-budget-btn').addEventListener('click', () => {
+  const raw = document.getElementById('budget-input').value.trim();
+  const val = parseFloat(raw);
+  if (!raw || isNaN(val) || val <= 0) {
+    showToast('Enter a valid budget amount');
+    return;
+  }
+  saveSetting('budget', val);
+  showToast('Budget saved ✓');
+});
+
+// ── Currency ───────────────────────────────────────────────────────────────
+document.getElementById('currency-select').addEventListener('change', e => {
+  const cur = e.target.value;
+  saveSetting('currency', cur);
+  updateBudgetPrefix(cur);
+  showToast('Currency updated ✓');
+});
+
+// ── Dark mode ──────────────────────────────────────────────────────────────
+document.getElementById('dark-mode-toggle').addEventListener('change', e => {
+  const isDark = e.target.checked;
+  saveSetting('darkMode', isDark);
+  applyDarkMode(isDark);
+  showToast(isDark ? 'Dark mode on' : 'Dark mode off');
+});
+
+// ── Export ─────────────────────────────────────────────────────────────────
+document.getElementById('export-btn').addEventListener('click', () => {
+  const expenses = getExpenses();
+  const settings = getSettings();
+  const payload  = JSON.stringify({ expenses, settings, exportedAt: new Date().toISOString() }, null, 2);
+  const blob = new Blob([payload], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `pocketledger-${new Date().toISOString().split('T')[0]}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Data exported ✓');
+});
+
+// ── Reset ──────────────────────────────────────────────────────────────────
+const overlay    = document.getElementById('confirm-overlay');
+const confirmYes = document.getElementById('confirm-yes');
+const confirmNo  = document.getElementById('confirm-no');
+
+document.getElementById('reset-btn').addEventListener('click', () => {
+  overlay.style.display = 'flex';
+});
+confirmNo.addEventListener('click',  () => { overlay.style.display = 'none'; });
+overlay.addEventListener('click', e => { if (e.target === overlay) overlay.style.display = 'none'; });
+
+confirmYes.addEventListener('click', () => {
+  clearExpenses();
+  clearSettings();
+  overlay.style.display = 'none';
+  applyDarkMode(false); // reset visual too
+  showToast('All data has been reset');
+  setTimeout(() => {
+    loadUI();
+  }, 600);
+});
+</script>
+
+</body>
+</html>

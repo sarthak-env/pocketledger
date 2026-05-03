@@ -1,51 +1,146 @@
 # 💰 PocketLedger
 
-A simple, private personal finance tracker that runs entirely in your browser.
+A fast, private, and modern personal finance tracker built with **React**.
 
-## Project Structure
+PocketLedger helps users track expenses, manage monthly budgets, visualize spending habits, and generate spending insights — all while keeping data fully private by default.
 
-```
-pocketledger/
-├── index.html          ← Root redirect
-├── app/
-│   ├── index.html      ← Landing / home page
-│   ├── dashboard.html  ← Main expense tracker
-│   └── settings.html   ← Budget & preferences
-├── styles/
-│   └── main.css        ← Shared design system (CSS variables, components)
-└── js/
-    ├── store.js         ← Data layer (localStorage CRUD)
-    └── toast.js         ← Toast notification helper
-```
+No account required. No analytics. No server dependency (unless optional cloud sync is enabled).
 
-## How to Run
+---
 
-**Option 1 — Open directly in browser:**
-Double-click `index.html` (or `app/index.html`). The app uses ES modules, so some browsers may block `file://` imports. Use Option 2 for best results.
+## ✨ Features
 
-**Option 2 — Local server (recommended):**
+### Expense Management
+- Add expenses with:
+  - Amount
+  - Category
+  - Date
+  - Note/description
+- Delete individual expenses
+- View full expense history
+
+### Budget Tracking
+- Set monthly budget
+- Live spending progress bar
+- Remaining budget calculation
+- Overspending alerts
+
+### Analytics
+- Category-wise pie chart
+- Monthly spending summary
+- Smart spending insights
+
+Examples:
+- Highest spending category
+- Daily average spending
+- Budget burn rate
+
+### Preferences
+- Dark mode toggle
+- Currency selector
+
+Supported currencies:
+- USD
+- EUR
+- GBP
+- INR
+- JPY
+- CAD
+- AUD
+
+### Data Management
+- Export data as JSON
+- Import JSON backup
+- Local persistent storage
+
+### Privacy
+- 100% local-first
+- No tracking
+- No cookies
+- No external servers by default
+
+---
+
+## 🏗 Tech Stack
+
+### Frontend
+- React
+- Vite
+
+### Charts
+- Chart.js
+- react-chartjs-2
+
+### State Management
+- React Context API
+
+### Storage
+Default:
+- localStorage
+
+Optional upgrades:
+- IndexedDB
+- Supabase
+- Firebase
+
+---
+
+
+## 🔐 Privacy Philosophy
+
+PocketLedger is designed around **local-first privacy**.
+
+What PocketLedger does:
+- stores data locally
+- exports/imports manually
+
+What PocketLedger does NOT do:
+- collect analytics
+- send personal finance data
+- require login
+- use ads
+
+---
+
+
+## 🤝 Contributing
+
+Contributions welcome.
+
+Steps:
+
+1. Fork repository
+2. Create branch
+
 ```bash
-# Python 3
-python3 -m http.server 3000
-# then open http://localhost:3000
-
-# Node / npx
-npx serve .
-# then open the URL shown
+git checkout -b feature/new-feature
 ```
 
-## Features
+3. Commit changes
 
-- ✅ Log expenses by category, amount, date & note
-- ✅ Monthly budget with progress bar
-- ✅ Pie chart breakdown by category
-- ✅ Smart spending insights
-- ✅ Dark mode toggle
-- ✅ Currency selector (USD, EUR, GBP, INR, JPY, CAD, AUD)
-- ✅ Export data as JSON
-- ✅ Delete individual expenses
-- ✅ 100% private — all data in `localStorage`, nothing sent to any server
+```bash
+git commit -m "Add feature"
+```
 
-## Categories
+4. Push branch
 
-🍔 Food · 🚗 Transport · 🛍️ Shopping · 🎬 Entertainment · 📄 Bills · 💊 Health · 📌 Other
+```bash
+git push origin feature/new-feature
+```
+
+5. Open pull request
+
+---
+
+
+## ⭐ Support
+
+If you like the project:
+
+- star the repo
+- fork it
+- contribute improvements
+
+---
+
+**PocketLedger — personal finance without surveillance.**

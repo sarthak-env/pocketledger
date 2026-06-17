@@ -1,146 +1,80 @@
 # 💰 PocketLedger
 
-A fast, private, and modern personal finance tracker built with **React**.
+> Simple, intelligent expense tracking. No server. No account. No data collection.
 
-PocketLedger helps users track expenses, manage monthly budgets, visualize spending habits, and generate spending insights — all while keeping data fully private by default.
-
-No account required. No analytics. No server dependency (unless optional cloud sync is enabled).
+PocketLedger is a fully client-side personal finance tracker built with vanilla HTML, CSS, and JavaScript. All data is stored in your browser's `localStorage` — nothing ever leaves your device.
 
 ---
 
-## ✨ Features
+## Project Structure
 
-### Expense Management
-- Add expenses with:
-  - Amount
-  - Category
-  - Date
-  - Note/description
-- Delete individual expenses
-- View full expense history
-
-### Budget Tracking
-- Set monthly budget
-- Live spending progress bar
-- Remaining budget calculation
-- Overspending alerts
-
-### Analytics
-- Category-wise pie chart
-- Monthly spending summary
-- Smart spending insights
-
-Examples:
-- Highest spending category
-- Daily average spending
-- Budget burn rate
-
-### Preferences
-- Dark mode toggle
-- Currency selector
-
-Supported currencies:
-- USD
-- EUR
-- GBP
-- INR
-- JPY
-- CAD
-- AUD
-
-### Data Management
-- Export data as JSON
-- Import JSON backup
-- Local persistent storage
-
-### Privacy
-- 100% local-first
-- No tracking
-- No cookies
-- No external servers by default
-
----
-
-## 🏗 Tech Stack
-
-### Frontend
-- React
-- Vite
-
-### Charts
-- Chart.js
-- react-chartjs-2
-
-### State Management
-- React Context API
-
-### Storage
-Default:
-- localStorage
-
-Optional upgrades:
-- IndexedDB
-- Supabase
-- Firebase
-
----
-
-
-## 🔐 Privacy Philosophy
-
-PocketLedger is designed around **local-first privacy**.
-
-What PocketLedger does:
-- stores data locally
-- exports/imports manually
-
-What PocketLedger does NOT do:
-- collect analytics
-- send personal finance data
-- require login
-- use ads
-
----
-
-
-## 🤝 Contributing
-
-Contributions welcome.
-
-Steps:
-
-1. Fork repository
-2. Create branch
-
-```bash
-git checkout -b feature/new-feature
+```
+pocketledger/
+├── index.html              # Homepage / landing page
+├── README.md
+│
+├── pages/
+│   ├── dashboard.html      # Main app: add/view/delete expenses
+│   └── settings.html       # Budget, currency, dark mode, data export
+│
+├── styles/
+│   └── main.css            # Design system: tokens, components, utilities
+│
+└── js/
+    ├── store.js            # Data layer: localStorage CRUD + helpers
+    └── toast.js            # Toast notification utility
 ```
 
-3. Commit changes
-
-```bash
-git commit -m "Add feature"
-```
-
-4. Push branch
-
-```bash
-git push origin feature/new-feature
-```
-
-5. Open pull request
+No build step. No bundler. No dependencies. Open `index.html` in a browser and it works.
 
 ---
 
+## Features
 
-## ⭐ Support
-
-If you like the project:
-
-- star the repo
-- fork it
-- contribute improvements
+- **Expense logging** — amount, category, date, optional note
+- **Budget tracking** — set a monthly limit, see real-time progress
+- **Category breakdown** — visual pie chart and per-category totals
+- **Spending insights** — top category, total spent, budget remaining
+- **Dark mode** — toggled via Settings, persisted across sessions
+- **Data export** — download full expense history as JSON
+- **Multi-currency** — USD, EUR, GBP, INR, JPY, CAD, AUD
+- **100% private** — no network requests, no telemetry, no accounts
 
 ---
 
-**PocketLedger — personal finance without surveillance.**
+## Getting Started
+
+1. Clone or download the repository
+2. Open `index.html` in any modern browser
+3. Click **Open Dashboard** and start tracking
+
+No installation. No `npm install`. No server required.
+
+---
+
+## Design System
+
+All visual tokens live in `styles/main.css` as CSS custom properties:
+
+| Token | Value |
+|---|---|
+| `--accent-blue` | `#007aff` |
+| `--accent-green` | `#34c759` |
+| `--accent-red` | `#ff3b30` |
+| `--accent-orange` | `#ff9500` |
+| `--accent-purple` | `#af52de` |
+| Font | DM Sans (Google Fonts) |
+
+Dark mode is applied via `applyDarkMode()` in `js/store.js`, which overrides CSS variables on `:root` and sets a `data-dark="1"` attribute for component-level overrides.
+
+---
+
+## Browser Support
+
+Any modern browser with `localStorage` and ES Modules support (Chrome 61+, Firefox 60+, Safari 10.1+, Edge 16+).
+
+---
+
+## License
+
+MIT
